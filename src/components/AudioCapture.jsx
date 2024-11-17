@@ -37,7 +37,7 @@ const AudioCapture = () => {
 
       recorder.start(); // Start recording
       setIsRecording(true);
-      console.log('Recording started');
+      console.log('uhuh');
     } catch (error) {
       console.error('Error accessing microphone:', error);
     }
