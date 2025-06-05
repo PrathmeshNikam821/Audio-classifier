@@ -27,24 +27,22 @@ This project detects whether a given audio file contains a **real human voice** 
 
 ## 📁 Project Structure
 
-Audio-classifier/
-│
-├── Model/ # Trained model + feature extraction
-│ ├── Models/ # model.h5 file
-│ ├── feature.py # MFCC extraction logic
-│ └── predict.py # Model inference
-│
-├── Backend/ # Node.js backend for API
-│ ├── app.js
-│ ├── routes/
-│ ├── controllers/
-│ └── uploads/ # Uploaded audio files
-│
-├── frontend/ # React frontend
-│ └── (React components and config)
-│
-├── requirements.txt # Python dependencies
-├── README.md
+
+- Model/
+  - feature.py
+  - predict.py
+  - cnn_lstm_model.h5
+- Backend/
+  - app.js
+  - uploads/
+  - routes/
+- frontend/
+  - src/
+  - public/
+  - package.json
+- requirements.txt
+- README.md
+
 
 
 
