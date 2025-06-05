@@ -1,0 +1,22 @@
+Step 1 : open terminal in the folder 
+	
+	python3 -m venv venv
+
+	venv\Scripts\activate
+	
+	pip install -r requirements.txt
+
+step 2 : open new terminal 
+	cd frontend 
+	
+	npm install 
+	
+	npm run dev 
+
+
+step 3 : open new terminal 
+	cd backend 
+	
+	npm install 
+	
+	node app.js 

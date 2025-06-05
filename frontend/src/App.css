@@ -1,0 +1,11 @@
+/* App.css */
+
+.app-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #121212, #1f1f3d);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
