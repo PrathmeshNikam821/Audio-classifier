@@ -1,4 +1,4 @@
-/* index.css or App.css */
+
 * {
   margin: 0;
   padding: 0;
@@ -80,7 +80,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-/* index.css */
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;

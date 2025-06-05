@@ -7,13 +7,15 @@ const path = require('path');
 // Set up multer for file upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../uploads'));  // Use path.join for cross-platform compatibility
+    cb(null, path.join(__dirname, '../uploads')); 
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
 const upload = multer({ storage: storage });
+
+
 
 // Route for file upload and prediction
 router.post('/predict', upload.single('audio'), (req, res) => {
@@ -23,8 +25,8 @@ router.post('/predict', upload.single('audio'), (req, res) => {
 
   const filePath = path.join(__dirname, '../uploads', req.file.filename);
 
-  const pythonCommand = process.platform === 'win32' ? 'python' : 'python3';  // Dynamic command based on OS
-  const predictScriptPath = path.join(__dirname, '../Model/predict.py');  // Ensure correct script path
+  const pythonCommand = process.platform === 'win32' ? 'python' : 'python3'; 
+  const predictScriptPath = path.join(__dirname, '../Model/predict.py');  
 
   exec(`${pythonCommand} "${predictScriptPath}" "${filePath}"`, (error, stdout, stderr) => {
     if (error) {

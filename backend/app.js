@@ -13,6 +13,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files from the frontend public directory
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 // Multer configuration
@@ -36,8 +38,10 @@ const upload = multer({
   }
 });
 
-const pythonPath = path.join(__dirname, 'venv', 'Scripts', 'python');  // Correct for Windows
-const scriptPath = path.join(__dirname, '../Model/predict.py');  // Path to predict.py
+
+//paths for Python script and Python executable
+const pythonPath = path.join(__dirname, 'venv', 'Scripts', 'python');  
+const scriptPath = path.join(__dirname, '../Model/predict.py');  
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Synthetic Voice Detection API');

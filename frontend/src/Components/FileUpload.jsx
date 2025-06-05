@@ -10,6 +10,8 @@ const FileUpload = () => {
     setFile(e.target.files[0]);
   };
 
+
+  // Function to handle file upload and prediction
   const handleUpload = async () => {
     if (!file) {
       setResult('Please select a file to upload.');
@@ -34,7 +36,7 @@ const FileUpload = () => {
     <div className="file-upload-container">
       <h1 className="title">🎧 AI Voice Detection Portal</h1>
       <h2 className="subtitle">📁 Upload Audio</h2>
-
+      {/*  This component allows users to upload an audio file and get predictions from the backend. */}
       <div className="upload-box">
         <label className="label">Upload Audio File</label>
         <input type="file" onChange={handleFileChange} accept="audio/*" className="input-file" />
