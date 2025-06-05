@@ -110,7 +110,7 @@ The layers are structured as follows:
 - **Early Stopping:** Enabled (`patience=3` on `val_loss`)  
 - **Validation:** Uses separate validation dataset
 
-### 💻 Hardware / Software Used
+### 💻 Hardware / Software Requirements
 
 | Component             | Specification                |
 |----------------------|------------------------------|
