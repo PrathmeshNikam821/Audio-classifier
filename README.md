@@ -72,3 +72,53 @@ cd backend
 npm install  # install backend dependencies 
 node app.js
 ```
+
+
+## 🧠 Model Architecture Explanation
+
+The core of our system is a **hybrid deep learning model** that combines **Convolutional Neural Networks (CNNs)** with **Long Short-Term Memory (LSTM)** layers. This architecture is designed to effectively capture both spatial and temporal patterns in audio features, enabling accurate classification of **AI-generated vs real human voices**.
+
+### 🏗️ Architecture Overview
+
+The model accepts input of shape **`(130, 156)`**, where:
+- `130` = fixed time steps
+- `156` = number of extracted MFCC features per frame
+
+The layers are structured as follows:
+
+
+### 📋 Model Summary
+
+| Layer               | Output Shape | Parameters |
+|--------------------|--------------|------------|
+| Conv1D             | (128, 64)    | 30,784     |
+| BatchNormalization | (128, 64)    | 256        |
+| MaxPooling1D       | (64, 64)     | 0          |
+| Dropout            | (64, 64)     | 0          |
+| LSTM               | (64)         | 33,024     |
+| Dense (ReLU)       | (64)         | 4,160      |
+| Output (Sigmoid)   | (1)          | 65         |
+| **Total Parameters**| —            | **68,289** |
+
+### ⚙️ Training Configuration
+
+- **Loss Function:** Binary Crossentropy  
+- **Optimizer:** Adam  
+- **Metric:** Accuracy  
+- **Epochs:** Up to 50  
+- **Batch Size:** 16  
+- **Early Stopping:** Enabled (`patience=3` on `val_loss`)  
+- **Validation:** Uses separate validation dataset
+
+### 💻 Hardware / Software Used
+
+| Component             | Specification                |
+|----------------------|------------------------------|
+| **Operating System** | Windows 10 / 11              |
+| **RAM**              | 8 GB                         |
+| **GPU** (Optional)   | NVIDIA GTX 1650              |
+| **Python**           | 3.9                          |
+| **TensorFlow**       | 2.12+                        |
+| **librosa**          | 0.10+                        |
+| **Node.js**          | 18.x (Backend)               |
+| **React.js**         | 18.x (Frontend)              |
