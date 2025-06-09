@@ -4,10 +4,10 @@ const multer = require('multer');
 const { exec } = require('child_process');
 const path = require('path');
 
-// Set up multer for file upload
+// Multer config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../uploads')); 
+    cb(null, path.join(__dirname, '../uploads'));
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -15,20 +15,19 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-
-
-// Route for file upload and prediction
+// POST /predict
 router.post('/predict', upload.single('audio'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded');
   }
 
   const filePath = path.join(__dirname, '../uploads', req.file.filename);
+  const predictScriptPath = path.join(__dirname, '../Model/predict.py');
+  const pythonCommand = path.join(__dirname, '..', 'venv', 'Scripts', 'python');  // Correct venv path
 
-  const pythonCommand = process.platform === 'win32' ? 'python' : 'python3'; 
-  const predictScriptPath = path.join(__dirname, '../Model/predict.py');  
+  const command = `"${pythonCommand}" "${predictScriptPath}" "${filePath}"`;
 
-  exec(`${pythonCommand} "${predictScriptPath}" "${filePath}"`, (error, stdout, stderr) => {
+  exec(command, (error, stdout, stderr) => {
     if (error) {
       console.error(`Exec error: ${error.message}`);
       return res.status(500).json({ error: 'Error processing the file' });
