@@ -1,12 +1,15 @@
 import librosa
 import numpy as np
 
-def extract_features_with_spectrogram(file_path, max_len=130):
+def extract_features_with_spectrogram(audio_input, sr=16000, max_len=130):
     try:
-        # Load the audio file
-        y, sr = librosa.load(file_path, sr=16000)
+        # Check if input is a string (file path) or a NumPy array (raw audio)
+        if isinstance(audio_input, str):
+            y, sr = librosa.load(audio_input, sr=sr)
+        else:
+            y = audio_input  # already raw waveform
 
-        # Extract audio features
+        # Feature extraction
         mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
         chroma = librosa.feature.chroma_stft(y=y, sr=sr)
         zcr = librosa.feature.zero_crossing_rate(y)
@@ -15,7 +18,7 @@ def extract_features_with_spectrogram(file_path, max_len=130):
         mel_spec = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
         mel_spec_db = librosa.power_to_db(mel_spec, ref=np.max)
 
-        # Stack all features
+        # Stack all features vertically
         combined = np.vstack([mfcc, chroma, zcr, rolloff, rms, mel_spec_db])
 
         # Pad or truncate to max_len columns
@@ -25,8 +28,8 @@ def extract_features_with_spectrogram(file_path, max_len=130):
         else:
             combined = combined[:, :max_len]
 
-        return combined.T  # Shape: (130, 156)
-    
+        return combined.T  # Shape: (max_len, 156)
+
     except Exception as e:
         print(f"Feature extraction error: {e}")
         return None
